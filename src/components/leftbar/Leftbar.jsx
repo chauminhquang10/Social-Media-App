@@ -1,20 +1,24 @@
 import React from "react";
 
-import friendsMenuIcon from "../../assets/1.png";
-import groupsMenuIcon from "../../assets/2.png";
-import marketMenuIcon from "../../assets/3.png";
-import watchMenuIcon from "../../assets/4.png";
-import memoriesMenuIcon from "../../assets/5.png";
-import eventsMenuIcon from "../../assets/6.png";
-import gamingMenuIcon from "../../assets/7.png";
-import galleryMenuIcon from "../../assets/8.png";
-import videosMenuIcon from "../../assets/9.png";
-import messagesMenuIcon from "../../assets/1.png";
-import tutorialsMenuIcon from "../../assets/11.png";
-import coursesMenuIcon from "../../assets/12.png";
-import fundMenuIcon from "../../assets/13.png";
+import {
+  coursesMenuIcon,
+  eventsMenuIcon,
+  friendsMenuIcon,
+  fundMenuIcon,
+  galleryMenuIcon,
+  gamingMenuIcon,
+  groupsMenuIcon,
+  marketMenuIcon,
+  memoriesMenuIcon,
+  messagesMenuIcon,
+  tutorialsMenuIcon,
+  videosMenuIcon,
+  watchMenuIcon,
+} from "@/assets";
 
 import "./leftbar.scss";
+
+import { useUUID } from "@/hooks/useUUID";
 
 const leftbarMenuItems = [
   {
@@ -119,12 +123,16 @@ const SectionMenuItems = ({ mainTitle, items }) => {
 };
 
 const Leftbar = () => {
+  const menuItemKeys = useUUID(leftbarMenuItems.length);
+  console.log(menuItemKeys);
+
   return (
     <div className="leftbar">
       <div className="container">
-        {leftbarMenuItems.map((section) => {
+        {leftbarMenuItems.map((section, index) => {
           return (
             <SectionMenuItems
+              key={menuItemKeys[index]}
               mainTitle={section.mainTitle}
               items={section.items}
             />
