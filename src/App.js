@@ -15,14 +15,12 @@ import {
 } from "react-router-dom";
 
 import { ThemeContext } from "@/context/themeContext";
-import React, { useContext } from "react";
+import { AuthContext } from "@/context/authContext";
 
-import "@/styles/style.scss";
+import React, { useContext } from "react";
 
 const Layout = () => {
   const { themeMode } = useContext(ThemeContext);
-
-  console.log(themeMode);
 
   return (
     <div className={`theme-${themeMode}`}>
@@ -38,21 +36,21 @@ const Layout = () => {
   );
 };
 
-const ProtectedRoute = ({ children, currentUser }) => {
-  if (!currentUser) {
+const ProtectedRoute = ({ children, isLogged }) => {
+  if (!isLogged) {
     return <Navigate to="/login" />;
   }
   return children;
 };
 
 function App() {
-  const currentUser = true;
+  const { isLogged } = useContext(AuthContext);
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
-        <ProtectedRoute currentUser={currentUser}>
+        <ProtectedRoute isLogged={isLogged}>
           <Layout />
         </ProtectedRoute>
       ),
